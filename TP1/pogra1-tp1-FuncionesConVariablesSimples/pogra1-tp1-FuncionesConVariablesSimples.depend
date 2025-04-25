@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1742069399 source:c:\users\franc\desktop\escritorio\utn\progra1\tp1\pogra1-tp1-funcionesconvariablessimples\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+

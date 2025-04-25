@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1741116592 source:c:\users\franc\desktop\escritorio\utn\progra1\simulacro\pila.c
+	"pila.h"
+
+1741116595 c:\users\franc\desktop\escritorio\utn\progra1\simulacro\pila.h
+	<stdio.h>
+	<malloc.h>
+
+1744965337 source:c:\users\franc\desktop\escritorio\utn\progra1\simulacro\main.c
+	<stdio.h>
+	<stdlib.h>
+
