@@ -159,13 +159,19 @@ int main(int argc, char *argv[])
             mostrarMatrizEnteros(matriz2x2,filasMatriz2x2,columMatriz2x2);
             int inversa=tieneInversa(matriz2x2,filasMatriz2x2,columMatriz2x2);
 
-            if (inversa==-1){
+            if (inversa==-1)
+            {
                 printf("La matriz NO tiene inversa \n");
-            }else
-            printf("La matriz tiene inversa \n");
+            }
+            else
+                printf("La matriz tiene inversa \n");
 
-        system("PAUSE");
-        break;
+            system("PAUSE");
+            break;
+        case 14:
+            mostrarTabla();
+            system("PAUSE");
+            break;
         case 0:
             printf("\n\nTERMINATE THE PROGRAM\n");
             break;
@@ -199,6 +205,7 @@ int menu()
     printf("\n11- Hacer una función (o varias) que ordene un arreglo de palabras por orden alfabético. (Por selección o inserción, el que más te guste).");
     printf("\n12- Hacer una función que retorne el determinante de una matriz de 2x2.");
     printf("\n13- Función que verifique si una matriz de 2x2 tiene inversa.");
+    printf("\n14- Extra");
     printf("\n0- SALIR");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d",&input);
