@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>  // Necesario para la función time()
 
+
+
 // PROTOTIPADO
 int numRand();
 void mostrarMayorYMenor(int a, int b, int c);
