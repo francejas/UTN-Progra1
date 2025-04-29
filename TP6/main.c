@@ -19,12 +19,14 @@ void mostrarAlumno(stAlumno alumno);
 void mostrarAlumnoPorMatricula(stAlumno alumnos[], int v, int matricula);
 void ordenarAlumnosPorMatriculaSeleccion(stAlumno alumnos[], int v);
 int posicion_menor(stAlumno alumnos[], int v, int pos);
+void mostrarAlumnosPorGenero(stAlumno alumnos[],int v,char genero);
 
 int main(int argc, char *argv[])
 {
     stAlumno alumnos[MAX_ALUMNOS];
     int vAlumnos = 0;
     int matricula;
+    char genero;
 
     int selected;
     do
@@ -51,6 +53,12 @@ int main(int argc, char *argv[])
             mostrarArrayAlumnos(alumnos, vAlumnos);
             system("PAUSE");
             break;
+        case 5:
+           printf("Ingrese genero del alumno: ");
+            scanf("%d",&genero);
+            mostrarAlumnosPorGenero(alumnos,vAlumnos,genero);
+            system("PAUSE");
+            break;
         case 0:
             printf("\n\nTERMINATE THE PROGRAM\n");
             break;
@@ -75,6 +83,7 @@ int menu()
     printf("\n2-Hacer una función que muestre un arreglo de alumnos por pantalla. Modularizar.");
     printf("\n3-Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.");
     printf("\n4-Hacer una función que ordene el arreglo de alumnos por medio del método de selección. El criterio de ordenación es el número de matrícula.");
+    printf("\n5-Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.");
     printf("\n0-QUIT");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d", &input);
@@ -191,4 +200,8 @@ int posicion_menor(stAlumno alumnos[], int v, int pos)
         index++;
     }
     return posMenor;
+}
+
+void mostrarAlumnosPorGenero(stAlumno alumnos[],int v,char genero){
+
 }
