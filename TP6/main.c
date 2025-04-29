@@ -16,6 +16,9 @@ int menu();
 int cargarAlumnos(stAlumno alumnos[], int v, int max);
 void mostrarArrayAlumnos(stAlumno alumnos[], int v);
 void mostrarAlumno(stAlumno alumno);
+void mostrarAlumnoPorMatricula(stAlumno alumnos[], int v, int matricula);
+void ordenarAlumnosPorMatriculaSeleccion(stAlumno alumnos[], int v);
+int posicion_menor(stAlumno alumnos[], int v, int pos);
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +47,8 @@ int main(int argc, char *argv[])
             system("PAUSE");
             break;
         case 4:
-
+            ordenarAlumnosPorMatriculaSeleccion(alumnos,vAlumnos);
+            mostrarArrayAlumnos(alumnos, vAlumnos);
             system("PAUSE");
             break;
         case 0:
@@ -137,14 +141,54 @@ void mostrarAlumno(stAlumno alumno)
 
 void mostrarAlumnoPorMatricula(stAlumno alumnos[], int v, int matricula)
 {
+    int encontrado = 0;
     for (int i = 0; i < v; i++)
     {
         if (alumnos[i].matricula == matricula)
         {
             mostrarAlumno(alumnos[i]);
-
-        }else{
-        printf("Alumno con matrícula %d no encontrado.\n", matricula);
+            encontrado = 1;
+            break;  // Una vez encontrado, podemos salir del ciclo
         }
     }
+
+    if (!encontrado)
+    {
+        printf("Alumno con matrícula %d no encontrado.\n", matricula);
+    }
+}
+
+
+void ordenarAlumnosPorMatriculaSeleccion(stAlumno alumnos[], int v)
+{
+    int posMenor;
+    int i=0;
+    stAlumno aux;
+
+    while(i<v-1)
+    {
+        posMenor=posicion_menor(alumnos, v, i);
+        aux=alumnos[posMenor];
+        alumnos[posMenor]=alumnos[i];
+        alumnos[i]=aux;
+        i++;
+    }
+}
+
+int posicion_menor(stAlumno alumnos[], int v, int pos)
+{
+    int menor=alumnos[pos].matricula;
+    int posMenor=pos;
+    int index=pos+1;
+
+    while(index<v)
+    {
+        if (menor>alumnos[index].matricula)
+        {
+            menor=alumnos[index].matricula;
+            posMenor=index;
+        }
+        index++;
+    }
+    return posMenor;
 }
