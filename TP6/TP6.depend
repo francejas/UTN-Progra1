@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1745893000 source:c:\users\franc\desktop\escritorio\utn\progra1\tp6\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
