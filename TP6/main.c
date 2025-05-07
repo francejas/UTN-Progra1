@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
             break;
         case 5:
            printf("Ingrese genero del alumno: ");
-            scanf("%d",&genero);
+            scanf(" %c",&genero);
             mostrarAlumnosPorGenero(alumnos,vAlumnos,genero);
             system("PAUSE");
             break;
@@ -203,5 +203,11 @@ int posicion_menor(stAlumno alumnos[], int v, int pos)
 }
 
 void mostrarAlumnosPorGenero(stAlumno alumnos[],int v,char genero){
+
+    for(int i=0;i<v;i++){
+        if (alumnos[i].genero == genero){
+            mostrarAlumno(alumnos[i]);
+        }
+    }
 
 }
