@@ -54,9 +54,18 @@ int main(int argc, char *argv[])
             system("PAUSE");
             break;
         case 5:
-           printf("Ingrese genero del alumno: ");
+            printf("Ingrese genero del alumno: ");
             scanf(" %c",&genero);
             mostrarAlumnosPorGenero(alumnos,vAlumnos,genero);
+            system("PAUSE");
+            break;
+        case 6:
+            ordenarAlumnosPorNombreInsercion(alumnos,vAlumnos);
+            mostrarArrayAlumnos(alumnos, vAlumnos);
+            system("PAUSE");
+            break;
+        case 7:
+
             system("PAUSE");
             break;
         case 0:
@@ -84,6 +93,8 @@ int menu()
     printf("\n3-Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.");
     printf("\n4-Hacer una función que ordene el arreglo de alumnos por medio del método de selección. El criterio de ordenación es el número de matrícula.");
     printf("\n5-Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.");
+    printf("\n6-Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.");
+    printf("\n7-Hacer una función que ordene el arreglo de alumnos por medio del método de inserción. El criterio de ordenación es el nombre.");
     printf("\n0-QUIT");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d", &input);
@@ -202,12 +213,37 @@ int posicion_menor(stAlumno alumnos[], int v, int pos)
     return posMenor;
 }
 
-void mostrarAlumnosPorGenero(stAlumno alumnos[],int v,char genero){
+void mostrarAlumnosPorGenero(stAlumno alumnos[],int v,char genero)
+{
 
-    for(int i=0;i<v;i++){
-        if (alumnos[i].genero == genero){
+    for(int i=0; i<v; i++)
+    {
+        if (alumnos[i].genero == genero)
+        {
             mostrarAlumno(alumnos[i]);
         }
     }
 
+}
+
+void ordenarAlumnosPorNombreInsercion(stAlumno alumnos[], int v)
+{
+    int i=0;
+    while(i<v-1)
+    {
+        insertar(alumnos,i,alumnos[i+1].nombre);
+        i++;
+    }
+}
+
+void insertar (stAlumno alumnos[], int ultPos, char nombre)
+{
+    int i=ultPos;
+
+    while(i>=0 && (strcmp(nombre, alumnos[i].nombre)<0))
+    {
+        alumnos[i+1]=alumnos[i];
+        i--;
+    }
+    alumnos[i+1]=dato;
 }
