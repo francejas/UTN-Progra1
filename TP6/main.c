@@ -60,12 +60,12 @@ int main(int argc, char *argv[])
             system("PAUSE");
             break;
         case 6:
-            ordenarAlumnosPorNombreInsercion(alumnos,vAlumnos);
-            mostrarArrayAlumnos(alumnos, vAlumnos);
+
             system("PAUSE");
             break;
         case 7:
-
+            ordenarAlumnosPorNombreInsercion(alumnos,vAlumnos);
+            mostrarArrayAlumnos(alumnos, vAlumnos);
             system("PAUSE");
             break;
         case 0:
@@ -88,17 +88,17 @@ int menu()
     printf("\n----------");
     printf("\nLIST MENU");
     printf("\n-----------");
-    printf("\n1-Hacer una función que cargue un arreglo de alumnos, hasta que el usuario lo decida.");
-    printf("\n2-Hacer una función que muestre un arreglo de alumnos por pantalla. Modularizar.");
-    printf("\n3-Hacer una función que muestre por pantalla los datos de un alumno, conociendo su matrícula. Modularizar.");
-    printf("\n4-Hacer una función que ordene el arreglo de alumnos por medio del método de selección. El criterio de ordenación es el número de matrícula.");
-    printf("\n5-Hacer una función que muestre por pantalla los datos de los estudiantes de un género determinado (se envía por parámetro). Modularizar.");
-    printf("\n6-Hacer una función que inserte en un arreglo ordenado por matrícula un nuevo dato, conservando el orden.");
-    printf("\n7-Hacer una función que ordene el arreglo de alumnos por medio del método de inserción. El criterio de ordenación es el nombre.");
+    printf("\n1-Hacer una funciï¿½n que cargue un arreglo de alumnos, hasta que el usuario lo decida.");
+    printf("\n2-Hacer una funciï¿½n que muestre un arreglo de alumnos por pantalla. Modularizar.");
+    printf("\n3-Hacer una funciï¿½n que muestre por pantalla los datos de un alumno, conociendo su matrï¿½cula. Modularizar.");
+    printf("\n4-Hacer una funciï¿½n que ordene el arreglo de alumnos por medio del mï¿½todo de selecciï¿½n. El criterio de ordenaciï¿½n es el nï¿½mero de matrï¿½cula.");
+    printf("\n5-Hacer una funciï¿½n que muestre por pantalla los datos de los estudiantes de un gï¿½nero determinado (se envï¿½a por parï¿½metro). Modularizar.");
+    printf("\n6-Hacer una funciï¿½n que inserte en un arreglo ordenado por matrï¿½cula un nuevo dato, conservando el orden.");
+    printf("\n7-Hacer una funciï¿½n que ordene el arreglo de alumnos por medio del mï¿½todo de inserciï¿½n. El criterio de ordenaciï¿½n es el nombre.");
     printf("\n0-QUIT");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d", &input);
-    getchar(); // Consumir ENTER después del scanf
+    getchar(); // Consumir ENTER despuï¿½s del scanf
     return input;
 }
 
@@ -111,29 +111,29 @@ int cargarAlumnos(stAlumno alumnos[], int v, int max)
     {
         printf("\n--- Alumno %d ---\n", i + 1);
 
-        printf("Ingrese matrícula: ");
+        printf("Ingrese matrï¿½cula: ");
         scanf("%d", &alumnos[i].matricula);
-        getchar(); // Consumir ENTER después de scanf
+        getchar(); // Consumir ENTER despuï¿½s de scanf
 
         printf("Ingrese nombre: ");
         gets(alumnos[i].nombre);
         //fgets(alumnos[i].nombre, sizeof(alumnos[i].nombre), stdin);
 
-        printf("Ingrese género (m/f/o): ");
+        printf("Ingrese gï¿½nero (m/f/o): ");
         scanf("%c", &alumnos[i].genero);
-        getchar(); // Consumir ENTER después de scanf
+        getchar(); // Consumir ENTER despuï¿½s de scanf
 
         i++;
 
         if (i < max)
         {
-            printf("¿Desea cargar otro alumno? (s/n): ");
+            printf("ï¿½Desea cargar otro alumno? (s/n): ");
             scanf("%c", &seguir);
-            getchar(); // Consumir ENTER después de scanf
+            getchar(); // Consumir ENTER despuï¿½s de scanf
         }
         else
         {
-            printf("Se alcanzó el máximo de alumnos permitido.\n");
+            printf("Se alcanzï¿½ el mï¿½ximo de alumnos permitido.\n");
             seguir = 'n';
         }
 
@@ -153,9 +153,9 @@ void mostrarArrayAlumnos(stAlumno alumnos[], int v)
 
 void mostrarAlumno(stAlumno alumno)
 {
-    printf("Matrícula: %d\n", alumno.matricula);
+    printf("Matrï¿½cula: %d\n", alumno.matricula);
     printf("Nombre: %s\n", alumno.nombre);
-    printf("Género: %c\n", alumno.genero);
+    printf("Gï¿½nero: %c\n", alumno.genero);
     printf("---------------------------\n");
 }
 
@@ -174,7 +174,7 @@ void mostrarAlumnoPorMatricula(stAlumno alumnos[], int v, int matricula)
 
     if (!encontrado)
     {
-        printf("Alumno con matrícula %d no encontrado.\n", matricula);
+        printf("Alumno con matrï¿½cula %d no encontrado.\n", matricula);
     }
 }
 
@@ -231,19 +231,23 @@ void ordenarAlumnosPorNombreInsercion(stAlumno alumnos[], int v)
     int i=0;
     while(i<v-1)
     {
-        insertar(alumnos,i,alumnos[i+1].nombre);
+        insertar(alumnos, i);
         i++;
     }
+    
 }
 
-void insertar (stAlumno alumnos[], int ultPos, char nombre)
+void insertar(stAlumno alumnos[], int ultPos)
 {
-    int i=ultPos;
+    stAlumno aux = alumnos[ultPos];
+    int j = ultPos;
 
-    while(i>=0 && (strcmp(nombre, alumnos[i].nombre)<0))
+    while (j >= 0 && strcmp(aux.nombre, alumnos[j].nombre) < 0)
     {
-        alumnos[i+1]=alumnos[i];
-        i--;
+        alumnos[j + 1] = alumnos[j];
+        j--;
     }
-    alumnos[i+1]=dato;
+
+    alumnos[j + 1] = aux;
 }
+
