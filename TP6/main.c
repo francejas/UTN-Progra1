@@ -72,12 +72,13 @@ int main(int argc, char *argv[])
             system("PAUSE");
             break;
         case 8:
-            printf("Ingrese un genero: (m/f/o)");
-            scanf(" %c",&genero);
-            vGenero = contadorPorGenero(alumnos,vGenero,genero);
-            printf("Numero de alumnos %c: %d",genero,vGenero);
+            printf("Ingrese un genero: (m/f/o): ");
+            scanf(" %c", &genero);
+            vGenero = contadorPorGenero(alumnos, vAlumnos, genero);
+            printf("Numero de alumnos de genero %c: %d\n", genero, vGenero);
             system("PAUSE");
             break;
+
         case 0:
             printf("\n\nTERMINATE THE PROGRAM\n");
             break;
@@ -264,16 +265,15 @@ void insertar(stAlumno alumnos[], int ultPos)
 
 int contadorPorGenero(stAlumno alumnos[], int v, char genero)
 {
-    int validos=v;
+    int contador = 0;
 
-    for(int i=0; i<v; i++)
+    for(int i = 0; i < v; i++)
     {
         if (alumnos[i].genero == genero)
         {
-            validos++;
+            contador++;
         }
     }
 
-    return validos;
+    return contador;
 }
-
