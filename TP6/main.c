@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
     int matricula;
     char genero;
 
+    int vGenero=0;
+
     int selected;
     do
     {
@@ -68,6 +70,13 @@ int main(int argc, char *argv[])
             mostrarArrayAlumnos(alumnos, vAlumnos);
             system("PAUSE");
             break;
+        case 8:
+            printf("Ingrese un genero: (m/f/o)");
+            scanf(" %c",&genero);
+            vGenero = contadorPorGenero(alumnos,vGenero);
+            printf("Numero de alumnos %c: %d",genero,vGenero);
+            system("PAUSE");
+            break;
         case 0:
             printf("\n\nTERMINATE THE PROGRAM\n");
             break;
@@ -95,6 +104,7 @@ int menu()
     printf("\n5-Hacer una funci�n que muestre por pantalla los datos de los estudiantes de un g�nero determinado (se env�a por par�metro). Modularizar.");
     printf("\n6-Hacer una funci�n que inserte en un arreglo ordenado por matr�cula un nuevo dato, conservando el orden.");
     printf("\n7-Hacer una funci�n que ordene el arreglo de alumnos por medio del m�todo de inserci�n. El criterio de ordenaci�n es el nombre.");
+    printf("\n8-Hacer una función que cuente y retorne la cantidad de estudiantes de un género determinado (se envía por parámetro) que tiene un arreglo de alumnos.");
     printf("\n0-QUIT");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d", &input);
@@ -234,7 +244,7 @@ void ordenarAlumnosPorNombreInsercion(stAlumno alumnos[], int v)
         insertar(alumnos, i);
         i++;
     }
-    
+
 }
 
 void insertar(stAlumno alumnos[], int ultPos)
@@ -249,5 +259,15 @@ void insertar(stAlumno alumnos[], int ultPos)
     }
 
     alumnos[j + 1] = aux;
+}
+
+int contadorPorGenero(stAlumno alumnos[], int v){
+    int validos=v;
+
+    for(int i=0;i<v;i++){
+
+    }
+
+
 }
 
