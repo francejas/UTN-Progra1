@@ -20,6 +20,7 @@ void mostrarAlumnoPorMatricula(stAlumno alumnos[], int v, int matricula);
 void ordenarAlumnosPorMatriculaSeleccion(stAlumno alumnos[], int v);
 int posicion_menor(stAlumno alumnos[], int v, int pos);
 void mostrarAlumnosPorGenero(stAlumno alumnos[],int v,char genero);
+int contadorPorGenero(stAlumno alumnos[], int v, char genero);
 
 int main(int argc, char *argv[])
 {
@@ -73,7 +74,7 @@ int main(int argc, char *argv[])
         case 8:
             printf("Ingrese un genero: (m/f/o)");
             scanf(" %c",&genero);
-            vGenero = contadorPorGenero(alumnos,vGenero);
+            vGenero = contadorPorGenero(alumnos,vGenero,genero);
             printf("Numero de alumnos %c: %d",genero,vGenero);
             system("PAUSE");
             break;
@@ -261,13 +262,18 @@ void insertar(stAlumno alumnos[], int ultPos)
     alumnos[j + 1] = aux;
 }
 
-int contadorPorGenero(stAlumno alumnos[], int v){
+int contadorPorGenero(stAlumno alumnos[], int v, char genero)
+{
     int validos=v;
 
-    for(int i=0;i<v;i++){
-
+    for(int i=0; i<v; i++)
+    {
+        if (alumnos[i].genero == genero)
+        {
+            validos++;
+        }
     }
 
-
+    return validos;
 }
 
