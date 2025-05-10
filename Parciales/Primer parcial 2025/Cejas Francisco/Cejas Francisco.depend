@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1490112218 source:d:\cejas francisco\pila.c
+	"pila.h"
+
+1490112218 d:\cejas francisco\pila.h
+	<stdio.h>
+	<malloc.h>
+
+1745539255 source:d:\cejas francisco\main.c
+	<stdio.h>
+	<stdlib.h>
+	"pila.h"
+	"time.h"
+	"math.h"
+
