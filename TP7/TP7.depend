@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1747039956 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\alumno.c
+	<stdio.h>
+	<stdlib.h>
+	"alumno.h"
+
+1747039868 c:\users\franc\desktop\escritorio\utn\progra1\tp7\alumno.h
+
+1747040562 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\main.c
+	<stdio.h>
+	<stdlib.h>
+	"alumno.h"
+
