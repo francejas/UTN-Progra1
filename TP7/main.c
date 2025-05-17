@@ -38,9 +38,11 @@ int menu()
     printf("\n----------");
     printf("\nLIST MENU");
     printf("\n-----------");
-    printf("\n1-Hacer una función que agregue un elemento al final de un archivo.");
+    printf("\n1-Hacer una funciÃ³n que agregue un elemento al final de un archivo.");
     printf("\n0-QUIT");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d",&input);
     return input;
 }
+
+//hola como estas
