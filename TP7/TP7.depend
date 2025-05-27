@@ -1,13 +1,21 @@
 # depslib dependency file v1.0
-1747039956 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\alumno.c
+1748326053 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\alumno.c
 	<stdio.h>
 	<stdlib.h>
 	"alumno.h"
 
-1747039868 c:\users\franc\desktop\escritorio\utn\progra1\tp7\alumno.h
+1748330001 c:\users\franc\desktop\escritorio\utn\progra1\tp7\alumno.h
 
-1747040562 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\main.c
+1748332267 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\main.c
 	<stdio.h>
 	<stdlib.h>
 	"alumno.h"
+	"pila.h"
+
+1741116592 source:c:\users\franc\desktop\escritorio\utn\progra1\tp7\pila.c
+	"pila.h"
+
+1741116595 c:\users\franc\desktop\escritorio\utn\progra1\tp7\pila.h
+	<stdio.h>
+	<malloc.h>
 

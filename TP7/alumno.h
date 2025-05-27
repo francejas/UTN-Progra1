@@ -1,16 +1,17 @@
-#ifndef ALUMNO_H_INCLUDED
-#define ALUMNO_H_INCLUDED
+#ifndef ALUMNO_H
+#define ALUMNO_H
+
+#define MAX_NOMBRE 100
 
 typedef struct {
-     int legajo;
-     char nombreYapellido [30];
-     int edad;
-     int anio;
-
+    int legajo;
+    char nombreYapellido[MAX_NOMBRE];
+    int edad;
+    int anio;
 } stAlumno;
 
-///PROTOTIPADOS
+// Declaraciones de funciones para manejo de alumnos
+stAlumno cargaAlumno();
 
 
-
-#endif // ALUMNO_H_INCLUDED
+#endif
