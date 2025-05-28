@@ -7,6 +7,8 @@
 
 #define AR_ALUMNOS "alumnos.dat"
 
+#define MAX 100
+
 int menu();
 
 int main(int argc, char *argv[])
@@ -20,6 +22,10 @@ int main(int argc, char *argv[])
     int cant=0;
     int minimaEdad;
     int maximaEdad;
+    int anio;
+
+    stAlumno alumnos[MAX];
+    int vAlumnos=0;
 
 
     do
@@ -82,6 +88,36 @@ int main(int argc, char *argv[])
         case 10:
             mostrarAlumnoMayorEdad(AR_ALUMNOS);
             system("PAUSE");
+            break;
+        case 11:
+            printf("Ingrese anio:");
+            scanf("%d",&anio);
+            cant=contarAlumnosPorAnio(AR_ALUMNOS,anio);
+            printf("Cantidad de alumnos que estan en %d anio: %d.\n", anio, cant);
+            system("PAUSE");
+            break;
+        case 12:
+        {
+            printf("Carga de alumnos en arreglo.\n");
+            vAlumnos=cargaArregloAlumnos(alumnos,v,MAX);
+            printf("Se cargaron en el arreglo: %d alumnos",vAlumnos);
+            printf("Pasando %d alumnos al archivo \"%s\"",vAlumnos,AR_ALUMNOS);
+            int cantDatos=copiarArregloArchivo(AR_ALUMNOS,alumnos,v);
+            printf("Se pasaron con exito: %d alumnos",cantDatos);
+            //copiarArregloArchivoFiltrado();
+            break;
+        }
+        case 13:
+            //contarRegistrosGenerico();
+            break;
+        case 14:
+            //mostrarRegistroPorNumero();
+            break;
+        case 15:
+            //modificarRegistro();
+            break;
+        case 16:
+            //invertirArchivoAlumnos();
             break;
         case 0:
             printf("\n\nTERMINATE THE PROGRAM\n");
@@ -372,7 +408,8 @@ void mostrarNombreAlumno(stAlumno alumno)
     printf("\n-------------------------\n");
     printf("Nombre y Apellido: %s", alumno.nombreYapellido);  // fgets incluye el '\n'
 }
-
+///NO ENTIENDO
+/*
 void mostrarAlumnoMayorEdad(char nombreArchivo[])
 {
     FILE*fp;
@@ -397,4 +434,115 @@ void mostrarAlumnoMayorEdad(char nombreArchivo[])
         printf("Error al abrir el archivo.\n");
     }
 
+}
+*/
+
+// Esta función busca y muestra el alumno de mayor edad en el archivo binario de alumnos.
+void mostrarAlumnoMayorEdad(char nombreArchivo[])
+{
+    FILE *fp;
+    stAlumno alumnoActual;  // Variable para almacenar el alumno que se va leyendo del archivo
+    stAlumno alumnoMayor;   // Variable que va a contener el alumno con la mayor edad encontrada
+
+    fp = fopen(nombreArchivo, "rb");  // Abrimos el archivo en modo lectura binaria
+
+    if (fp != NULL)
+    {
+        // Leemos el primer alumno del archivo y lo guardamos como "alumnoMayor" inicial.
+        // Esto es muy importante: usamos este primer alumno como punto de comparación,
+        // porque sabemos que es un alumno real del archivo.
+        if (fread(&alumnoMayor, sizeof(stAlumno), 1, fp) > 0)
+        {
+            // Empezamos a leer el resto de los alumnos uno por uno
+            while (fread(&alumnoActual, sizeof(stAlumno), 1, fp) > 0)
+            {
+                // Comparamos la edad del alumno actual con la del mayor hasta ahora
+                if (alumnoActual.edad > alumnoMayor.edad)
+                {
+                    // Si el alumno actual tiene más edad, lo guardamos como nuevo "mayor"
+                    alumnoMayor = alumnoActual;
+                }
+            }
+
+            fclose(fp);  // Cerramos el archivo una vez terminado el recorrido
+
+            // Mostramos los datos del alumno de mayor edad
+            printf("\n--- Alumno de Mayor Edad ---\n");
+            muestraUnAlumno(alumnoMayor);
+        }
+        else
+        {
+            // Si no se pudo leer ni un solo alumno, es porque el archivo está vacío
+            printf("El archivo está vacío.\n");
+            fclose(fp);
+        }
+    }
+    else
+    {
+        // Si no se pudo abrir el archivo, mostramos mensaje de error
+        printf("Error al abrir el archivo.\n");
+    }
+}
+
+int contarAlumnosPorAnio(char nombreArchivo[],int anio)
+{
+    FILE*fp;
+    fp=fopen(nombreArchivo,"rb");
+    stAlumno aux;
+    int contador=0;
+    if(fp!=NULL)
+    {
+        while (fread(&aux, sizeof(stAlumno), 1, fp) > 0)
+        {
+            if(aux.anio==anio)
+            {
+                contador++;
+            }
+        }
+        fclose(fp);
+    }
+    else
+    {
+        printf("Error al abrir el archivo.\n");
+    }
+    return contador;
+}
+
+
+int cargaArregloAlumnos(stAlumno alumnos[], int v, int max)
+{
+    int i = v;
+    char control;
+
+    do
+    {
+        alumnos[i]=cargaAlumno();
+        printf("¿Desea seguir ingresando alumnos? (s/n): ");
+        fflush(stdin);
+        scanf(" %c", &control);
+        i++;
+
+    }
+    while ((control == 's' || control == 'S') && i < max);
+
+    return i;
+}
+
+int copiarArregloArchivo(char nombreArchivo[], stAlumno alumnos[],int v)
+{
+    FILE*fp;
+    int cantDatos=0;
+    fp=fopen(nombreArchivo,"rb");
+    if(fp==NULL){
+        printf("El archivo \"%s\" no existe. Se creará uno nuevo.\n", nombreArchivo);
+    } else{
+        fclose(fp);
+    }
+    fp=fopen(nombreArchivo,"ab");
+    if(fp!=NULL){
+        cantDatos=fwrite(alumnos,sizeof(stAlumno),v,fp);
+    } else{
+        printf("Error al abrir el archivo \"%s\.\n");
+    }
+    return cantDatos;
 }
