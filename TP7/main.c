@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
     inicpila(&legajoMayores);
     int edad=18;
     int cant=0;
+    int minimaEdad;
+    int maximaEdad;
 
 
     do
@@ -66,6 +68,19 @@ int main(int argc, char *argv[])
             scanf("%d", &edad);
             cant=contarMayoresDeEdad(AR_ALUMNOS,edad);
             printf("Cantidad de alumnos con edad mayor o igual a %d: %d\n", edad, cant);
+            system("PAUSE");
+            break;
+        case 9:
+            printf("Ingrese rango de edad:\n");
+            printf("Minimo:");
+            scanf("%d",&minimaEdad);
+            printf("Maxima:");
+            scanf("%d",&maximaEdad);
+            mostrarAlumnosEnRangoEdad(AR_ALUMNOS,minimaEdad,maximaEdad);
+            system("PAUSE");
+            break;
+        case 10:
+            mostrarAlumnoMayorEdad(AR_ALUMNOS);
             system("PAUSE");
             break;
         case 0:
@@ -327,4 +342,59 @@ int contarMayoresDeEdad(char nombreArchivo[], int edad)
         printf("El archivo no existe.\n");
     }
     return contador;
+}
+void mostrarAlumnosEnRangoEdad(char nombreArchivo[], int min, int max)
+{
+    FILE *fp;
+    stAlumno aux;
+    fp = fopen(nombreArchivo, "rb");
+    if(fp != NULL)
+    {
+        printf("\n--- Alumnos entre %d y %d años ---\n", min, max);
+        while(fread(&aux, sizeof(stAlumno), 1, fp) > 0)
+        {
+            if(aux.edad >= min && aux.edad <= max)
+            {
+                mostrarNombreAlumno(aux);
+            }
+        }
+        fclose(fp);
+    }
+    else
+    {
+        printf("Error al abrir el archivo.\n");
+    }
+}
+
+
+void mostrarNombreAlumno(stAlumno alumno)
+{
+    printf("\n-------------------------\n");
+    printf("Nombre y Apellido: %s", alumno.nombreYapellido);  // fgets incluye el '\n'
+}
+
+void mostrarAlumnoMayorEdad(char nombreArchivo[])
+{
+    FILE*fp;
+    stAlumno alumnoActual;
+    stAlumno alumnoMayor;
+    fp=fopen(nombreArchivo,"rb");
+    if(fp!=NULL)
+    {
+        while(fread(&alumnoActual,sizeof(stAlumno),1,fp)>0)
+        {
+            if(alumnoActual.edad>alumnoMayor.edad)
+            {
+                alumnoMayor=alumnoActual;
+            }
+        }
+        fclose(fp);
+        printf("\n--- Alumno de Mayor Edad ---\n");
+        muestraUnAlumno(alumnoMayor);
+    }
+    else
+    {
+        printf("Error al abrir el archivo.\n");
+    }
+
 }
