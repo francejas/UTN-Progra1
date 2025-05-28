@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
     stAlumno alumnos[MAX];
     int vAlumnos=0;
 
-
     do
     {
         selected = menu();
@@ -43,7 +42,7 @@ int main(int argc, char *argv[])
             break;
         case 3:
         {
-            int cantidad = contarRegistrosArchivo(AR_INT);
+            int cantidad = contarRegistrosArchivoINT(AR_INT);
             if (cantidad >= 0)
                 printf("Cantidad de registros: %d\n", cantidad);
             else
@@ -103,21 +102,31 @@ int main(int argc, char *argv[])
             printf("Se cargaron en el arreglo: %d alumnos",vAlumnos);
             printf("Pasando %d alumnos al archivo \"%s\"",vAlumnos,AR_ALUMNOS);
             int cantDatos=copiarArregloArchivo(AR_ALUMNOS,alumnos,v);
-            printf("Se pasaron con exito: %d alumnos",cantDatos);
-            //copiarArregloArchivoFiltrado();
+            printf("Se pasaron con exito: %d alumnos\n",cantDatos);
+            printf("Ingrese un anio:");
+            scanf("%d",&anio);
+            printf("Pasando los alumnos del anio %d del archivo \"%s\" al arreglo\n",anio,AR_ALUMNOS);
+            vAlumnos=copiarArchivoArregloFiltrado(AR_ALUMNOS,alumnos,anio,MAX);
+            printf("Se pasaron con exito: %d alumnos\n",cantDatos);
+            system("PAUSE");
             break;
         }
         case 13:
-            //contarRegistrosGenerico();
+            cant=contarRegistrosGenerico(AR_ALUMNOS,sizeof(stAlumno));
+            printf("El archivo \"%s\" contiene %d archivos.\n",AR_ALUMNOS,cant);
+            system("PAUSE");
             break;
         case 14:
             //mostrarRegistroPorNumero();
+            system("PAUSE");
             break;
         case 15:
-            //modificarRegistro();
+            modificarRegistro(AR_ALUMNOS);
+            system("PAUSE");
             break;
         case 16:
             //invertirArchivoAlumnos();
+            system("PAUSE");
             break;
         case 0:
             printf("\n\nTERMINATE THE PROGRAM\n");
@@ -218,7 +227,7 @@ void mostrarContenidoArchivo(const char nombreArchivo[])
     }
 }
 
-int contarRegistrosArchivo(const char nombreArchivo[])
+int contarRegistrosArchivoINT(const char nombreArchivo[])
 {
     int cant = -1;
 
@@ -408,6 +417,8 @@ void mostrarNombreAlumno(stAlumno alumno)
     printf("\n-------------------------\n");
     printf("Nombre y Apellido: %s", alumno.nombreYapellido);  // fgets incluye el '\n'
 }
+
+
 ///NO ENTIENDO
 /*
 void mostrarAlumnoMayorEdad(char nombreArchivo[])
@@ -509,7 +520,7 @@ int contarAlumnosPorAnio(char nombreArchivo[],int anio)
 }
 
 
-int cargaArregloAlumnos(stAlumno alumnos[], int v, int max)
+int cargaArregloAlumnos(stAlumno alumnos[], int v, int max_dim)
 {
     int i = v;
     char control;
@@ -523,7 +534,7 @@ int cargaArregloAlumnos(stAlumno alumnos[], int v, int max)
         i++;
 
     }
-    while ((control == 's' || control == 'S') && i < max);
+    while ((control == 's' || control == 'S') && i < max_dim);
 
     return i;
 }
@@ -533,16 +544,80 @@ int copiarArregloArchivo(char nombreArchivo[], stAlumno alumnos[],int v)
     FILE*fp;
     int cantDatos=0;
     fp=fopen(nombreArchivo,"rb");
-    if(fp==NULL){
+    if(fp==NULL)
+    {
         printf("El archivo \"%s\" no existe. Se creará uno nuevo.\n", nombreArchivo);
-    } else{
+    }
+    else
+    {
         fclose(fp);
     }
     fp=fopen(nombreArchivo,"ab");
-    if(fp!=NULL){
+    if(fp!=NULL)
+    {
         cantDatos=fwrite(alumnos,sizeof(stAlumno),v,fp);
-    } else{
-        printf("Error al abrir el archivo \"%s\.\n");
+        fclose(fp);
+    }
+    else
+    {
+        printf("El archivo \"%s\" no existe.\n", nombreArchivo);
     }
     return cantDatos;
+}
+
+int copiarArchivoArregloFiltrado(char nombreArchivo[],stAlumno alumnos[],int anio, int max_dim)
+{
+    int i=0;
+    FILE*fp;
+    fp=fopen(nombreArchivo,"rb");
+    stAlumno aux;
+    if(fp!=NULL)
+    {
+        while(fread(&aux,sizeof(stAlumno),1,fp)>0)
+        {
+            if(aux.anio==anio)
+            {
+                alumnos[i]=aux;
+                i++;
+            }
+            if(i>=max_dim)
+            {
+                printf("Se alcanzo el limite del arreglo.\n");
+                printf("Se completaron la carga de %d alumnos.\n",i);
+                break;
+            }
+        }
+        fclose(fp);
+    }
+    else
+    {
+        printf("El archivo \"%s\" no existe.\n", nombreArchivo);
+    }
+
+    return i;
+}
+
+int contarRegistrosGenerico (char nombreArchivo[],int tamRegistro)
+{
+    FILE*fp;
+    fp=fopen(nombreArchivo,"rb");
+    int cant=0;
+    if(fp!=NULL)
+    {
+        fseek(fp,0,SEEK_END);
+        long bytesTotales=ftell(fp);
+        cant=(int)(bytesTotales/tamRegistro);
+        fclose(fp);
+    }
+    else
+    {
+        printf("El archivo \"%s\" no existe.\n", nombreArchivo);
+    }
+    return cant;
+}
+
+void modificarRegistro(char nombreArchivo[])
+{
+    mostrarArchivoAlumnos(nombreArchivo);
+
 }
