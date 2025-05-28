@@ -619,5 +619,10 @@ int contarRegistrosGenerico (char nombreArchivo[],int tamRegistro)
 void modificarRegistro(char nombreArchivo[])
 {
     mostrarArchivoAlumnos(nombreArchivo);
+    printf("Ingrese el numero del legajo del alumno que quiera modificar")
+    ingresa legajo
+    se localiza el alumno del legajo
+    se pregunta que se desea modificar
+    una banda de ifs y se modifica
 
 }
