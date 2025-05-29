@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     int vEnteros=7;
     int flag;
     int suma;
+    int menor;
 
     do
     {
@@ -69,7 +70,14 @@ int main(int argc, char *argv[])
             printf("Arreglo:\n");
             mostrarArregloIterativo(arregloEnteros,vEnteros);
             suma=sumaArregloRecursivo(arregloEnteros,vEnteros,0);
-            printf("Suma = %d",suma);
+            printf("Suma = %d\n",suma);
+            system("PAUSE");
+            break;
+        case 7:
+            menor=buscarMenorRecursivo(arregloEnteros,vEnteros,0);
+            printf("El menor del arreglo:\n");
+            mostrarArregloIterativo(arregloEnteros,vEnteros);
+            printf("%d",menor);
             system("PAUSE");
             break;
         case 0:
@@ -98,6 +106,8 @@ int menu()
     printf("\n4- Recorrer un arreglo comenzando desde la posición 0 y mostrar sus elementos en forma invertida (recursivo).");
     printf("\n5- Verificar si el arreglo es capicua (recursivo).");
     printf("\n6- Sumar en forma recursiva los elementos de un arreglo de enteros y retornar el total de la suma.");
+    printf("\n7- Buscar el menor elemento de un arreglo en forma recursiva.");
+    printf("\n8- Buscar el menor elemento de un archivo de números enteros de forma recursiva. (desde el mismo archivo).");
     printf("\n0-QUIT");
     printf("\n\nENTER YOUR CHOICE: ");
     scanf("%d",&input);
@@ -190,8 +200,21 @@ int capicuaRecursivo(int array[],int i, int j)
 int sumaArregloRecursivo(int array[],int v, int i)
 {
     int suma=0;
-    if(i<v){
+    if(i<v)
+    {
         suma=array[i]+sumaArregloRecursivo(array,v,i+1);
     }
     return suma;
+}
+
+int buscarMenorRecursivo(int array[], int v, int i)
+{
+    int menorDelResto;
+
+    if (i == v - 1)
+        menorDelResto = array[i];
+    else
+        menorDelResto = minimoRecursivo(array, v, i + 1);
+
+    return (array[i] < menorDelResto) ? array[i] : menorDelResto;
 }
